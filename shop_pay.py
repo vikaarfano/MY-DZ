@@ -43,7 +43,7 @@ coun.click()
 russia = driver.find_element_by_id('s2id_autogen1_search')
 russia.send_keys('Russia')
 
-rus = driver.find_element_by_id('select2-result-label-2209')
+rus = driver.find_element_by_class_name('select2-results-dept-0.select2-result.select2-result-selectable')
 rus.click()
 
 adress = driver.find_element_by_id('billing_address_1')
@@ -58,15 +58,20 @@ co.send_keys('Москва')
 zip = driver.find_element_by_id('billing_postcode')
 zip.send_keys('1256854')
 
+driver.execute_script('window.scrollBy(0,600)')
+time.sleep(5)
+
 check = driver.find_element_by_id('payment_method_cheque')
 check.click()
 
 place = driver.find_element_by_id('place_order')
 place.click()
+time.sleep(3)
 
+text1 = WebDriverWait(driver, 15).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#page-35 > div > div.woocommerce > table > tfoot > tr:nth-child(3) > td'), 'Check Payments'))
 
-driver.execute_script('window.scrollBy(0,600)')
-time.sleep(5)
+text = WebDriverWait(driver, 15).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#page-35 > div > div.woocommerce > p.woocommerce-thankyou-order-received'), 'Thank you. Your order has been received.'))
 
+driver.quit()
 
 
